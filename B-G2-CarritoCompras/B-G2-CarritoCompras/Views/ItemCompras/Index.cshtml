@@ -1,0 +1,47 @@
+﻿@model IEnumerable<B_G2_CarritoCompras.Models.ItemCompra>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+@*<p>
+    <a asp-action="Create">Create New</a>
+</p>*@
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Producto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cantidad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Carrito)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Producto.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cantidad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Carrito.CarritoId)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ItemCompraId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ItemCompraId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ItemCompraId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,53 @@
+﻿@model IEnumerable<B_G2_CarritoCompras.Models.Compra>
+
+@{
+    ViewData["Title"] = "Compras realizadas";
+}
+
+<h1>Compras realizadas</h1>
+
+@if (Model.Count() == 0)
+{
+    <p>No hay compras realizadas.</p>
+    <p>Elegí <a asp-action="Index" asp-controller="Productos">Productos</a> para comenzar a comprar.</p>
+}
+else
+{
+
+<div class="btn-toolbar mb-2 float-right" role="toolbar" aria-label="Toolbar with button groups">
+    <div class="btn-group btn-group-sm mr-2" role="group" aria-label="First group">
+        <a type="button" class="btn btn-outline-secondary" asp-route-orden="1" asp-action="Index">Más recientes</a>
+        <a type="button" class="btn btn-outline-secondary" asp-route-orden="2" asp-action="Index">Más antiguas</a>
+    </div>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Fecha)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PrecioFinal) (IVA incluído)
+            </th>
+            <th>Acciones</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fecha)
+            </td>
+            <td>
+                $@Html.DisplayFor(modelItem => item.PrecioFinal)
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.CompraId">Detalle</a> 
+            </td>
+        </tr>
+        }
+        </tbody>
+    </table>
+}

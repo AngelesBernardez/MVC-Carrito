@@ -1,0 +1,67 @@
+﻿@model B_G2_CarritoCompras.Models.Compra
+
+@{
+    ViewData["Title"] = "Detalles de la compra";
+}
+
+<h1>Detalles</h1>
+
+<div>
+    <h4>de la Compra</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Fecha)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Fecha)
+        </dd>
+    </dl>
+</div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Nombre
+                </th>
+                <th>
+                    Categoria
+                </th>
+                <th>
+                    Cantidad
+                </th>
+                <th>
+                    Precio
+                </th>
+                <th>
+                    Total producto
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var producto in Model.Carrito.ItemsCompra)
+            {
+                <tr>
+                    <td>@producto.Producto.Nombre</td>
+                    <td>@producto.Producto.Categoria.Nombre</td>
+                    <td>@producto.Cantidad @(producto.Cantidad > 1 ? "unidades" : "unidad")</td>
+                    <td>$@producto.Producto.Precio</td>
+                    <td>$@producto.Subtotal</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <h5>Total: $@Model.PrecioFinal <span>(IVA incluído)</span></h5>
+    <div>
+        @if (User.IsInRole("Cliente"))
+        {
+            <a asp-action="Index">Ver historial de compras</a>
+        }
+        @if (User.IsInRole("Admin"))
+        {
+            <a asp-action="IndexAdmin">Ver historial de compras</a>
+        }
+    </div>

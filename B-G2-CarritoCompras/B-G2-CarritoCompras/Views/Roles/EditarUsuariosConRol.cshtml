@@ -1,0 +1,36 @@
+﻿@model List<B_G2_CarritoCompras.Models.Roles.UsuarioRol>;
+
+@{
+    ViewData["Title"] = "Editar usuarios en Rol";
+    var rolId = ViewBag.rolId;
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form method="post">
+    <div class="card">
+        <div class="card-header">
+            <h2>Agregar o remover usuarios en el rol</h2>
+        </div>
+        <div class="card-body">
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <div class="form-check">
+                    <input type="hidden" asp-for="@Model[i].UsuarioId" />
+                    <input type="hidden" asp-for="@Model[i].NombreUsuario" />
+                    <input asp-for="@Model[i].Seleccionado" class="form-check-input" />
+                    <label class="form-check-label"
+                           asp-for="@Model[i].Seleccionado">
+                        @Model[i].NombreUsuario
+                    </label>
+                </div>
+            }
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary">Actualizar</button>
+            <a class="btn btn-primary"
+               asp-action="Editar"
+               asp-route-Id="@rolId">Cancelar</a>
+        </div>
+    </div>
+</form>

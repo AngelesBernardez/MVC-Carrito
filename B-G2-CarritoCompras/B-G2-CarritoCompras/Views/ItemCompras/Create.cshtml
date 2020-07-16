@@ -1,0 +1,41 @@
+﻿@model B_G2_CarritoCompras.Models.ItemCompra
+
+@{
+    ViewData["Title"] = "Agregar producto al carrito";
+}
+
+<h1>Agregar</h1>
+
+<h4>Producto al Carrito</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ProductoId" class="control-label">@Html.DisplayNameFor(model => model.Producto.Nombre)</label>
+                <select asp-for="ProductoId" class="form-control" asp-items="ViewBag.ProductoId">
+                </select>
+            </div>
+            <p>Stock: @ViewData["Stock"] u.</p>
+            <div class="form-group">
+                <label asp-for="Cantidad" class="control-label"></label>
+                <input asp-for="Cantidad" class="form-control" />
+                <span asp-validation-for="Cantidad" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Agregar" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-controller="Productos" asp-action="Index">Volver a Productos</a> |
+    <a asp-controller="Carritos" asp-action="Index">Ir al Carrito</a>
+
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

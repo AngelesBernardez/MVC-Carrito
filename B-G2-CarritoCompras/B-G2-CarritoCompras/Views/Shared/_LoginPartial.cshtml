@@ -1,0 +1,34 @@
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<Usuario> SignInManager
+@inject UserManager<Usuario> UserManager
+
+    <ul class="navbar-nav">
+        @if (SignInManager.IsSignedIn(User))
+        {
+            @if(User.IsInRole("Cliente"))
+            {
+                <li class="nav-item">
+                    <a class="btn btn-info" asp-area="" asp-controller="Carritos" asp-action="Index">Carrito 
+                        @await Component.InvokeAsync("Carrito")
+                    </a>
+                </li>
+            }
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="Identity">Hola @User.Identity.Name</a>
+            </li>
+            <li class="nav-item">
+                <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                    <button type="submit" class="nav-link btn btn-link text-dark">Salir</button>
+                </form>
+            </li>
+        }
+        else
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Registrar">Registrar Usuario</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="IniciarSesion">Entrar</a>
+            </li>
+        }
+    </ul>

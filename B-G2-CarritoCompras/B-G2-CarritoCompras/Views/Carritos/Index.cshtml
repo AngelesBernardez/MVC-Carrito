@@ -1,0 +1,62 @@
+﻿@model B_G2_CarritoCompras.Models.Carrito;
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Carrito</h1>
+
+@if (@Model.Subtotal == 0)
+{
+    <p>El carrito esta vacio.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Nombre
+                </th>
+                <th>
+                    Categoria
+                </th>
+                <th>
+                    Cantidad
+                </th>
+                <th>
+                    Precio
+                </th>
+                <th>
+                    Total producto
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var producto in @Model.ItemsCompra)
+            {
+                <tr>
+                    <td>@producto.Producto.Nombre</td>
+                    <td>@producto.Producto.Categoria.Nombre</td>
+                    <td>@producto.Cantidad @(producto.Cantidad > 1 ? "unidades" : "unidad")</td>
+                    <td>$@producto.Producto.Precio</td>
+                    <td>$@producto.Subtotal</td>
+                    <td>
+                        <a asp-action="QuitarItemDelCarrito" asp-route-id="@producto.ItemCompraId">Quitar del carrito</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <p>Subtotal: $@Model.Subtotal <span>+ 21% IVA</span></p>
+
+    <form asp-action="Create" asp-controller="Compras" method="post">
+        <a class="btn btn-danger" asp-action="VaciarCarrito">Vaciar Carrito</a>
+        <input type="hidden" value="@Model.CarritoId" name="carritoId"/>
+        <button class="btn btn-primary" type="submit">Finalizar compra</button>
+    </form>
+}
+

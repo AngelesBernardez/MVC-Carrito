@@ -1,0 +1,27 @@
+@model B_G2_CarritoCompras.Models.Categoria
+
+@{
+    ViewData["Title"] = "Eliminar categoria";
+}
+
+<h1>Eliminar categoria</h1>
+
+<h3>¿Realmente querés eliminar esta categoría?</h3>
+<div>
+    <h4>Categoría</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="CategoriaId" />
+        <input type="submit" value="Borrar" class="btn btn-danger" /> |
+        <a asp-action="Index">Volver</a>
+    </form>
+</div>

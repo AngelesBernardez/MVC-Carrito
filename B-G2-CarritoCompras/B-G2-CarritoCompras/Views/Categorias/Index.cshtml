@@ -1,0 +1,42 @@
+@model IEnumerable<B_G2_CarritoCompras.Models.Categoria>
+
+@{
+    ViewData["Title"] = "Categorias";
+}
+
+<h1>Categorias</h1>
+
+@if(User.IsInRole("Admin"))
+{
+    <p>
+        <a asp-action="Create">Crear nueva Categoria</a>
+    </p>
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td>
+                    <a asp-controller="Productos" asp-action="Index" asp-route-categoriaId="@item.CategoriaId">Ver Productos</a>
+                    @if (User.IsInRole("Admin"))
+                    {
+                <span>| </span><a asp-action="Edit" asp-route-id="@item.CategoriaId">Editar</a><span> | </span>
+                        <a asp-action="Delete" asp-route-id="@item.CategoriaId">Borrar</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,33 @@
+﻿@model B_G2_CarritoCompras.Models.Roles.CrearRol
+
+@{
+    ViewData["Title"] = "CrearRol";
+}
+
+<div class="card">
+    <form method="post">
+        <div class="card-header">
+            Crear Rol
+        </div>
+        <div class="card-body">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <label asp-for="RoleName"></label>
+            <input asp-for="RoleName" />
+            <span asp-validation-for="RoleName" class="text-danger"></span>
+        </div>
+        <div class="card-footer">
+            <input type="submit" value="Crear Rol" class="btn btn-primary" />
+        </div>
+    </form>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,42 @@
+﻿@model IEnumerable<B_G2_CarritoCompras.Models.Roles.UsuarioRol>;
+
+@{
+    ViewData["Title"] = "Listar Roles";
+}
+
+
+<div class="card">
+    <div class="card-header">
+        Listado de roles
+    </div>
+    <div class="card-body">
+        @if (@Model.Any())
+        {
+            <table>
+                @foreach (var r in Model)
+                {
+                    <tr>
+                        <td>
+                            @r.Name
+                        </td>
+                        <td>
+                            <a asp-action="Editar" asp-asp-controller="Roles" asp-route-id=@r.Id class="btn btn-success">Editar</a>
+                        </td>
+                        <td>
+                            <a asp-action="Eliminar" asp-asp-controller="Roles" asp-route-id=@r.Id class="btn btn-danger">Eliminar</a>
+                        </td>
+                    </tr>
+                }
+            </table>
+        }
+        else
+        {
+            <div>
+                <p class="alert-danger">No hay roles</p>
+            </div>
+        }
+    </div>
+    <div class="card-footer">
+        <a asp-action="Crear" asp-controller="Roles" class="btn btn-primary">Crear Rol</a>
+    </div>
+</div>

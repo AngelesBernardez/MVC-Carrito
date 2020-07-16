@@ -1,0 +1,57 @@
+﻿@model B_G2_CarritoCompras.Models.Roles.EditarRol;
+
+<h1>@ViewBag.ErrorMessage</h1>
+
+<form asp-action="Editar">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="card">
+        <div class="card-header">
+            Editar Rol
+        </div>
+        <div class="card-body">
+            <label asp-for="Id"></label>
+            <input asp-for="Id" disabled />
+        </div>
+        <div class="card-body">
+            <label asp-for="RoleName"></label>
+            <input asp-for="RoleName" />
+            <span asp-validation-for="RoleName" class="text-danger"></span>
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary">Editar</button>
+            <a asp-action="Index" class="btn btn-primary">Volver</a>
+        </div>
+    </div>
+    <hr />
+    <div class="card">
+        <div class="card-header">
+            Usuarios miembros
+        </div>
+        <div class="card-body">
+            @if (Model.Usuarios.Any())
+            {
+                foreach (var usr in Model.Usuarios)
+                {
+                    <ul>
+                        <li>
+                            @usr
+                        </li>
+                    </ul>
+                }
+            }
+            else
+            {
+                <span>No hay usuarios con este rol</span>
+            }
+        </div>
+        <div class="card-footer">
+            <a class="btn btn-primary"
+               asp-action="EditarUsuariosConRol"
+               asp-controller="Roles"
+               asp-route-rolId="@Model.Id">
+                Agregar o Quitar Usuarios
+            </a>
+        </div>
+    </div>
+</form>

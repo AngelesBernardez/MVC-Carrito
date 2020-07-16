@@ -1,0 +1,50 @@
+﻿@model IEnumerable<B_G2_CarritoCompras.Models.Compra>
+
+@{
+    ViewData["Title"] = "Compras efectuadas por usuarios";
+}
+
+<h1>Compras efectuadas por usuarios</h1>
+
+<div class="btn-toolbar mb-2 float-right" role="toolbar" aria-label="Toolbar with button groups">
+    <div class="btn-group btn-group-sm mr-2" role="group" aria-label="First group">
+        <a type="button" class="btn btn-outline-secondary" asp-route-orden="1" asp-action="IndexAdmin">Más recientes</a>
+        <a type="button" class="btn btn-outline-secondary" asp-route-orden="2" asp-action="IndexAdmin">Más antiguas</a>
+    </div>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Usuario)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Fecha)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PrecioFinal)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Usuario.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Fecha)
+                </td>
+                <td>
+                    $@Html.DisplayFor(modelItem => item.PrecioFinal) (IVA incluído)
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.CompraId">Detalles</a> 
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

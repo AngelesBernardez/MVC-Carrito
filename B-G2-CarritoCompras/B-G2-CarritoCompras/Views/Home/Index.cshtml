@@ -1,0 +1,24 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@if (User.IsInRole("Cliente"))
+{
+    <div class="jumbotron">
+        <h1 class="display-4">¡Hola!</h1>
+        <p class="lead">Bienvenido al Carrito.</p>
+        <hr class="my-4">
+        <p>Podés comenzar a comprar viendo los productos.</p>
+        <a asp-controller="Productos" asp-action="Index" class="btn btn-success btn-lg">Ir a Productos</a>
+    </div>
+}
+
+@if (User.IsInRole("Admin"))
+{
+    <div class="jumbotron">
+        <h1 class="display-4">¡Hola!</h1>
+        <p class="lead">Bienvenido al Carrito.</p>
+        <hr class="my-4">
+        <p>Desde acá podés administrar la aplicación.</p>
+    </div>
+}

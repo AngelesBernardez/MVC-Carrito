@@ -1,0 +1,72 @@
+﻿@model B_G2_CarritoCompras.ViewModels.ProductosVM
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Productos @(Model.Categoria != null ? " - " + Model.Categoria.Nombre : "")</h1>
+
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        <a asp-action="Create" asp-route-categoriaId="@Model.CategoriaId">Agregar Nuevo</a>
+    </p>
+}
+
+<div class="d-flex justify-content-between align-items-center mb-2">
+    <form class="form-inline mb-2" asp-action="Index">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group mb-2">
+            <label asp-for="CategoriaId" class="control-label">Filtrar por Categoría</label>
+        </div>
+        <div class="form-group mx-sm-3 mb-2">
+            <select asp-for="CategoriaId" class="form-control mr-2" asp-items="ViewBag.CategoriaId">
+                <option selected>Todas</option>
+            </select>
+            <input type="submit" value="Buscar" asp-action="Index" class="btn btn-outline-warning" />
+        </div>
+    </form>
+
+    <div class="d-flex">
+        <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+            <div class="btn-group btn-group-sm mr-2" role="group" aria-label="First group">
+                <a type="button" class="btn btn-outline-secondary" asp-route-orden="1" asp-route-categoriaId="@Model.CategoriaId" asp-action="Index">Mayor precio</a>
+                <a type="button" class="btn btn-outline-secondary" asp-route-orden="2" asp-route-categoriaId="@Model.CategoriaId" asp-action="Index">Menor precio</a>
+            </div>
+        </div>
+        <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+            <div class="btn-group btn-group-sm mr-2" role="group" aria-label="First group">
+                <a type="button" class="btn btn-outline-secondary" asp-route-orden="3" asp-route-categoriaId="@Model.CategoriaId" asp-action="Index">A-Z</a>
+                <a type="button" class="btn btn-outline-secondary" asp-route-orden="4" asp-route-categoriaId="@Model.CategoriaId" asp-action="Index">Z-A</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="d-flex flex-wrap">
+    @foreach (var item in Model.Productos)
+    {
+        <div class="card mr-2 mb-2" style="width: 16rem;">
+            <div class="card-header">
+                @Html.DisplayFor(modelItem => item.Categoria.Nombre)
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">@Html.DisplayFor(modelItem => item.Nombre)</h5>
+                <p class="card-text">Precio: <strong>$@Html.DisplayFor(modelItem => item.Precio)</strong></p>
+                <p class="card-text">Stock: @Html.DisplayFor(modelItem => item.Stock) u.</p>
+
+                @if (User.IsInRole("Cliente"))
+                {
+                    <a class="btn btn-outline-primary btn-sm mb-1" asp-action="AddToCartAsync" asp-route-id="@item.ProductoId">Agregar al carrito</a>
+                }
+                <div>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a class="card-link" asp-action="Edit" asp-route-id="@item.ProductoId">Editar</a>
+                        <a class="card-link" asp-action="Delete" asp-route-id="@item.ProductoId">Eliminar</a>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>

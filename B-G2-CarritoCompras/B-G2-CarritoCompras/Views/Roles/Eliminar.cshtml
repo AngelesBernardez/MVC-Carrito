@@ -1,0 +1,31 @@
+﻿@model Microsoft.AspNetCore.Identity.IdentityRole;
+
+@{
+    ViewData["Title"] = "Eliminar";
+}
+
+<h1>Eliminar Rol</h1>
+
+<h4>@ViewBag.ErrorMessage</h4>
+
+<form asp-action="Eliminar">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="card">
+        <div class="card-header">
+            Eliminar Rol
+        </div>
+        <div class="card-body">
+            <label asp-for="Id"></label>
+            <input asp-for="Id" disabled />
+        </div>
+        <div class="card-body">
+            <label asp-for="Name"></label>
+            <input asp-for="Name" disabled />
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-danger">Eliminar</button>
+            <a asp-action="Index" class="btn btn-primary">Volver</a>
+        </div>
+    </div>
+</form>
